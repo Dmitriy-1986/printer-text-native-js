@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Печатная машинка с кареткой</title>
+</head>
+<body>
+    <div id="printer-text"></div>
+
+    <script>
+        const textToType = "Пример текста, который будет напечатан на печатной машинке.";
+        const typingSpeed = 50; // Скорость печати (в миллисекундах между символами)
+
+        function typeTextWithCursor(text, speed, index = 0) {
+            const printerText = document.getElementById("printer-text");
+
+            if (index <= text.length) {
+                const beforeCursor = text.substring(0, index);
+                const cursor = (index < text.length) ? "|" : "";
+
+                printerText.textContent = beforeCursor + cursor;
+                setTimeout(() => {
+                    typeTextWithCursor(text, speed, index + 1);
+                }, speed);
+            } else {
+                // После завершения печати текста начинаем заново
+                setTimeout(() => {
+                    typeTextWithCursor(text, speed);
+                }, 2000); // Подождать 2 секунды перед повтором
+            }
+        }
+
+        // Запустить печать текста с кареткой
+        typeTextWithCursor(textToType, typingSpeed);
+    </script>
+</body>
+</html>
